@@ -20,8 +20,10 @@ This project solves that by detecting when venting occurs and responding with th
 - ESP32-based smart relay controller
 - Integrates with **Home Assistant** via ESPHome
 - **Real-time monitoring** of exhaust appliance usage
-- Controls a **variable-speed makeup air fan**
-- Uses **current sensors** to measure hood fan usage and adjust intake accordingly
+- Controls a **PWM-regulated makeup air fan** for fine-tuned airflow
+- Includes an **AC motor-powered damper** to seal off the intake when inactive
+- Uses **Hall effect sensors and magnetic shaft** to confirm damper position (open/closed)
+- Uses **current sensors** to detect hood fan usage and adjust response accordingly
 - Designed for easy retrofit and expansion
 
 ---
@@ -31,7 +33,8 @@ This project solves that by detecting when venting occurs and responding with th
 - LILYGO T-Relay ESP32
 - ESPHome firmware
 - Current transformer or smart switch with power monitoring (e.g., Shelly EM, CT clamp)
-- Inline intake fan with speed control
+- Inline fan with **PWM speed control**
+- AC-powered damper with magnetic feedback via Hall effect sensors
 - Filtration system (optional)
 - Home Assistant for sensor aggregation and automation
 
@@ -40,9 +43,10 @@ This project solves that by detecting when venting occurs and responding with th
 ## 🛠 How It Works
 
 1. A power-monitoring sensor detects current draw from exhaust appliances.
-2. If current exceeds threshold, a relay or fan controller activates the makeup air intake.
+2. If current exceeds threshold, Home Assistant activates the intake damper and enables the PWM-controlled intake fan.
 3. Fan speed is modulated to match exhaust appliance power level.
-4. All logic and adjustments are managed through **Home Assistant automations**.
+4. Hall effect sensors provide closed-loop feedback to ensure the damper is in the correct position before operation begins.
+5. All logic and adjustments are managed through **Home Assistant automations**.
 
 ---
 
